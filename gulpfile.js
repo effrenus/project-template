@@ -1,15 +1,18 @@
 var gulp = require('gulp'),
+    gutil = require('gulp-util'),
     browserify = require('gulp-browserify'),
     reactify = require('reactify'),
     uglify = require('gulp-uglify'),
     compass = require('gulp-compass'),
-    autoprefixer = require('gulp-autoprefixer');
+    autoprefixer = require('gulp-autoprefixer'),
+    connect = require('gulp-connect');
 
 var paths = {
-    js: 'js/*.js'
+    js: 'js/*.js',
+    sass: 'sass/*.scss'
 };
 
-gulp.task('build_bundle', function(){
+gulp.task('browserify', function(){
     gulp.src('js/main.js')
         .pipe(browserify({
             transform: [reactify]
@@ -18,17 +21,33 @@ gulp.task('build_bundle', function(){
         .pipe(gulp.dest('./build/js'));
 });
 
-gulp.task('compile_sass', function(){
-    gulp.src('sass/*.scss')
+gulp.task('sass', function(){
+    gulp.src(paths.sass)
         .pipe(compass({
             config_file: './config.rb',
-            css: './build/css'
-        }))
+            css: './css'
+        }).on('error', gutil.beep))
         .pipe(autoprefixer(['last 2 versions']))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('./css'))
+        .pipe(connect.reload());
 });
 
-gulp.task('default', function(){
-    gulp.watch(paths.js, ['build_bundle']);
-    gulp.watch('sass/*.scss', ['compile_sass']);
+gulp.task('html', function(){
+    gulp.src('*.html')
+        .pipe(connect.reload());
 });
+
+gulp.task('watch', function(){
+    // gulp.watch(paths.js, ['browserify']);
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch('*.html', ['html']);
+});
+
+gulp.task('connect', function(){
+    connect.server({
+        livereload: true,
+        port: 8400
+    });
+});
+
+gulp.task('default', ['connect', 'watch']);

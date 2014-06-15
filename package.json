@@ -1,7 +1,7 @@
 {
-  "name": "application-simple",
+  "name": "",
   "version": "0.0.0",
-  "description": "Simple form",
+  "description": "",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,13 +14,14 @@
   },
   "devDependencies": {
     "gulp": "^3.6.2",
-    "envify": "^1.2.1",
-    "minifyify": "^3.0.6",
-    "gulp-compass": "^1.1.9",
     "gulp-autoprefixer": "0.0.7",
     "gulp-browserify": "^0.5.0",
+    "gulp-compass": "^1.1.9",
+    "gulp-connect": "^2.0.5",
     "gulp-uglify": "^0.3.0",
+    "gulp-util": "^2.2.16",
     "gulp-watch": "^0.6.5",
+    "minifyify": "^3.0.6",
     "reactify": "^0.13.1"
   }
 }

@@ -1,6 +1,6 @@
 # http://compass-style.org/help/tutorials/configuration-reference/
 
-css_dir = ".build/css"
+css_dir = "css"
 sass_dir = "sass"
 images_dir = "images"
 javascripts_dir = "js"
